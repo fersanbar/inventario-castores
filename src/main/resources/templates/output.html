@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Salida de productos</title>
+</head>
+<body>
+
+<h1>Salida de productos</h1>
+
+<a href="/inventario">Ir a Inventario</a>
+
+<hr>
+
+<div th:if="${error}">
+    <p style="color:red;" th:text="${error}"></p>
+</div>
+
+<div th:if="${success}">
+    <p style="color:green;" th:text="${success}"></p>
+</div>
+
+<div th:if="${usuario.role.nombre == 'Almacenista'}">
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Producto</th>
+            <th>Descripción</th>
+            <th>Existencia</th>
+            <th>Salida</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="producto : ${productos}">
+            <td th:text="${producto.id}"></td>
+            <td th:text="${producto.nombre}"></td>
+            <td th:text="${producto.descripcion}"></td>
+            <td th:text="${producto.existencia}"></td>
+            <td>
+                <form th:action="@{/salida/{id}(id=${producto.id})}" method="post">
+                    <input type="number" name="cantidad" min="1" required>
+                    <button type="submit">Sacar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>

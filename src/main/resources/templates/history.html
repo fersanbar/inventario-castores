@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Historial</title>
+</head>
+<body>
+
+<h1>Historial de Movimientos</h1>
+
+<p>
+    Usuario:
+    <span th:text="${usuario.nombre}"></span>
+    -
+    Rol:
+    <span th:text="${usuario.role.nombre}"></span>
+</p>
+
+<a href="/inventario">Inventario</a> |
+<a href="/logout">Cerrar sesión</a>
+
+<hr>
+
+<form method="get" action="/historial">
+    <label>Filtrar por tipo:</label>
+
+    <select name="tipo">
+        <option value="">Todos</option>
+        <option value="Entrada" th:selected="${tipoSeleccionado == 'Entrada'}">Entrada</option>
+        <option value="Salida" th:selected="${tipoSeleccionado == 'Salida'}">Salida</option>
+    </select>
+
+    <button type="submit">Filtrar</button>
+</form>
+
+<hr>
+
+<div th:if="${#lists.isEmpty(movimientos)}">
+    <p>No hay movimientos registrados.</p>
+</div>
+
+<table border="1" cellpadding="10" th:if="${!#lists.isEmpty(movimientos)}">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Producto</th>
+        <th>Tipo</th>
+        <th>Cantidad</th>
+        <th>Usuario</th>
+        <th>Fecha</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="movimiento : ${movimientos}">
+        <td th:text="${movimiento.id}"></td>
+        <td th:text="${movimiento.product.nombre}"></td>
+        <td th:text="${movimiento.tipo}"></td>
+        <td th:text="${movimiento.cantidad}"></td>
+        <td th:text="${movimiento.usuario}"></td>
+        <td th:text="${#temporals.format(movimiento.fecha, 'dd/MM/yyyy HH:mm:ss')}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
