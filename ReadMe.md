@@ -8,6 +8,20 @@ El sistema permite administrar productos, controlar entradas y salidas de invent
 
 ---
 
+## IDE utilizado
+
+- IntelliJ IDEA
+
+## Lenguaje de programación
+
+- Java 21
+
+## DBMS
+
+- MySQL 8.0
+
+---
+
 ## Tecnologías utilizadas
 
 - Java 21
