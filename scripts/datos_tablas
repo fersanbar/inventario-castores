@@ -1,0 +1,9 @@
+INSERT INTO roles (nombre)
+VALUES
+('Administrador'),
+('Almacenista');
+
+INSERT INTO usuarios (nombre, correo, password, rol_id)
+VALUES
+('Administrador', 'admin@castores.com', '1234', 1),
+('Almacenista', 'almacen@castores.com', '1234', 2);

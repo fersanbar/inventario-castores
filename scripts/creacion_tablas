@@ -1,0 +1,38 @@
+CREATE DATABASE inventario;
+USE inventario;
+
+CREATE TABLE roles (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE usuarios (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    correo VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    rol_id BIGINT,
+    CONSTRAINT fk_usuarios_roles
+        FOREIGN KEY (rol_id)
+        REFERENCES roles(id)
+);
+
+CREATE TABLE productos (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    descripcion VARCHAR(255),
+    existencia INT NOT NULL DEFAULT 0,
+    activo BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+CREATE TABLE movimientos (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(255),
+    cantidad INT,
+    usuario VARCHAR(255),
+    fecha DATETIME(6),
+    producto_id BIGINT,
+    CONSTRAINT fk_movimientos_productos
+        FOREIGN KEY (producto_id)
+        REFERENCES productos(id)
+);
